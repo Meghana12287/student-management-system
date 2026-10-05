@@ -9,6 +9,7 @@ from database import get_db, init_db
 
 app = Flask(__name__)
 app.secret_key = "change-this-secret-key"  # change before deploying
+init_db()
 
 COURSES = ["Computer Science", "Mechanical", "Electronics", "Civil",
            "Business Admin", "Mathematics"]
