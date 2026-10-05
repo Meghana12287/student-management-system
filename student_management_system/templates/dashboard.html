@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · Campus Register{% endblock %}
+{% block content %}
+<header class="page-head"><h1>Dashboard</h1>
+  <a class="btn" href="{{ url_for('add_student') }}">Add student</a></header>
+
+<section class="stats">
+  <div class="stat big"><b>{{ stats.total }}</b><span>students enrolled</span></div>
+  <div class="stat"><b>{{ stats.active }}</b><span>active</span></div>
+  <div class="stat"><b>{{ stats.graduated }}</b><span>graduated</span></div>
+  <div class="stat"><b>{{ stats.avg_gpa }}</b><span>average GPA</span></div>
+</section>
+
+<section class="two">
+  <div class="panel">
+    <h2>Students per course</h2>
+    {% for c in by_course %}
+    <div class="bar-row"><span>{{ c.course }}</span>
+      <div class="bar"><i style="width: {{ (c.n / top * 100)|round }}%"></i></div><em>{{ c.n }}</em></div>
+    {% else %}<p class="empty">No students yet. Add the first one.</p>{% endfor %}
+  </div>
+  <div class="panel">
+    <h2>Recently added</h2>
+    {% for s in recent %}
+    <a class="recent" href="{{ url_for('edit_student', sid=s.id) }}">
+      <span class="avatar">{{ s.name[0] }}</span>
+      <div><strong>{{ s.name }}</strong><small>{{ s.roll_no }} · {{ s.course }}</small></div></a>
+    {% else %}<p class="empty">Nothing here yet.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}
